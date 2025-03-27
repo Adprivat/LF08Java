@@ -1,0 +1,227 @@
+========================================================
+  ERKLÄRUNG DER LUFTFAHRZEUG-VERWALTUNGSANWENDUNG
+========================================================
+
+
+
+1. ÜBERSICHT
+========================================================
+
+Die Anwendung wurde nach dem objektorientierten Paradigma entwickelt und nutzt Konzepte wie:
+- Vererbung
+- Abstraktion
+- Polymorphismus
+- Datenkapselung
+
+Das Programm besteht aus fünf Klassen:
+- Luftfahrzeug (abstrakte Basisklasse)
+- Flugzeug (Ableitung von Luftfahrzeug)
+- Heissluftballon (Ableitung von Luftfahrzeug)
+- LuftfahrzeugVerwaltung (Verwaltungsklasse)
+- Main (Hauptklasse mit Benutzerschnittstelle)
+
+2. KLASSENSTRUKTUR IM DETAIL
+========================================================
+
+2.1 ABSTRAKTE BASISKLASSE: LUFTFAHRZEUG
+--------------------------------------------------------
+
+Die abstrakte Klasse Luftfahrzeug definiert die gemeinsamen Eigenschaften aller Luftfahrzeuge.
+
+Zugriffsmodifikatoren:
+- public abstract class Luftfahrzeug: Die Klasse ist öffentlich zugänglich und als abstrakt definiert, was bedeutet, dass keine direkten Instanzen dieser Klasse erzeugt werden können.
+
+Attribute (alle private, um Datenkapselung zu gewährleisten):
+- private String bezeichnung: Der Name des Luftfahrzeugs.
+- private double gewicht: Das Gewicht des Luftfahrzeugs in Kilogramm.
+- private int baujahr: Das Herstellungsjahr des Luftfahrzeugs.
+
+Konstruktoren:
+- public Luftfahrzeug(): Standardkonstruktor, der die Attribute mit Standardwerten initialisiert.
+- public Luftfahrzeug(String bezeichnung, double gewicht, int baujahr): Parametrisierter Konstruktor, der die Attribute mit übergebenen Werten initialisiert.
+
+Getter-Methoden (Zugriffsmethoden):
+- public String getBezeichnung(): Gibt den Wert des Attributs "bezeichnung" zurück.
+- public double getGewicht(): Gibt den Wert des Attributs "gewicht" zurück.
+- public int getBaujahr(): Gibt den Wert des Attributs "baujahr" zurück.
+
+Setter-Methoden (Änderungsmethoden):
+- public void setBezeichnung(String bezeichnung): Setzt den Wert des Attributs "bezeichnung".
+- public void setGewicht(double gewicht): Setzt den Wert des Attributs "gewicht".
+- public void setBaujahr(int baujahr): Setzt den Wert des Attributs "baujahr".
+
+Weitere Methoden:
+- public String getDaten(): Gibt eine formatierte Zeichenkette zurück, die alle Attribute des Luftfahrzeugs enthält.
+
+2.2 ABGELEITETE KLASSE: FLUGZEUG
+--------------------------------------------------------
+
+Die Klasse Flugzeug erbt von der abstrakten Klasse Luftfahrzeug und erweitert diese um flugzeugspezifische Eigenschaften.
+
+Zugriffsmodifikatoren:
+- public class Flugzeug extends Luftfahrzeug: Die Klasse ist öffentlich zugänglich und erbt von Luftfahrzeug.
+
+Attribute (alle private):
+- private double spannweite: Die Spannweite der Flügel in Metern.
+- private int motorenAnzahl: Die Anzahl der Motoren des Flugzeugs.
+
+Konstruktoren:
+- public Flugzeug(): Standardkonstruktor, der den Konstruktor der übergeordneten Klasse aufruft und zusätzliche Attribute initialisiert.
+- public Flugzeug(String bezeichnung, double gewicht, int baujahr, double spannweite, int motorenAnzahl): Parameterisierter Konstruktor, der den Konstruktor der übergeordneten Klasse mit Parametern aufruft und zusätzliche Attribute initialisiert.
+
+Getter-Methoden:
+- public double getSpannweite(): Gibt den Wert des Attributs "spannweite" zurück.
+- public int getAnzahlMotoren(): Gibt den Wert des Attributs "motorenAnzahl" zurück.
+
+Setter-Methoden:
+- public void setSpannweite(double spannweite): Setzt den Wert des Attributs "spannweite".
+- public void setAnzahlMotoren(int motorenAnzahl): Setzt den Wert des Attributs "motorenAnzahl".
+
+Überschriebene Methoden:
+- @Override public String getDaten(): Überschreibt die Methode der Basisklasse, ruft diese mit super.getDaten() auf und erweitert die Rückgabe um flugzeugspezifische Informationen.
+
+2.3 ABGELEITETE KLASSE: HEISSLUFTBALLON
+--------------------------------------------------------
+
+Die Klasse Heissluftballon erbt von der abstrakten Klasse Luftfahrzeug und erweitert diese um ballonspezifische Eigenschaften.
+
+Zugriffsmodifikatoren:
+- public class Heissluftballon extends Luftfahrzeug: Die Klasse ist öffentlich zugänglich und erbt von Luftfahrzeug.
+
+Attribute (alle private):
+- private double ballonVolumen: Das Volumen des Ballons in Kubikmetern.
+- private double korbhoehe: Die Höhe des Korbs in Metern.
+
+Konstruktoren:
+- public Heissluftballon(): Standardkonstruktor, der den Konstruktor der übergeordneten Klasse aufruft und zusätzliche Attribute initialisiert.
+- public Heissluftballon(String bezeichnung, double gewicht, int baujahr, double ballonVolumen, double korbhoehe): Parameterisierter Konstruktor, der den Konstruktor der übergeordneten Klasse mit Parametern aufruft und zusätzliche Attribute initialisiert.
+
+Getter-Methoden:
+- public double getBallonVolumen(): Gibt den Wert des Attributs "ballonVolumen" zurück.
+- public double getKorbhoehe(): Gibt den Wert des Attributs "korbhoehe" zurück.
+
+Setter-Methoden:
+- public void setBallonVolumen(double ballonVolumen): Setzt den Wert des Attributs "ballonVolumen".
+- public void setKorbhoehe(double korbhoehe): Setzt den Wert des Attributs "korbhoehe".
+
+Überschriebene Methoden:
+- @Override public String getDaten(): Überschreibt die Methode der Basisklasse, ruft diese mit super.getDaten() auf und erweitert die Rückgabe um ballonspezifische Informationen.
+
+2.4 VERWALTUNGSKLASSE: LUFTFAHRZEUGVERWALTUNG
+--------------------------------------------------------
+
+Diese Klasse dient als Verwaltungsschicht für Luftfahrzeuge und bietet Methoden zum Hinzufügen, Entfernen und Abfragen von Luftfahrzeugen.
+
+Zugriffsmodifikatoren:
+- public class LuftfahrzeugVerwaltung: Die Klasse ist öffentlich zugänglich.
+
+Attribute:
+- private List<Luftfahrzeug> luftfahrzeuge: Eine Liste, die alle verwalteten Luftfahrzeuge enthält. Private Zugriff sorgt für Datenkapselung.
+
+Konstruktor:
+- public LuftfahrzeugVerwaltung(): Initialisiert die Liste der Luftfahrzeuge als leere ArrayList.
+
+Methoden:
+- public void addLuftfahrzeug(Luftfahrzeug luftfahrzeug): Fügt ein neues Luftfahrzeug zur Liste hinzu.
+- public boolean removeLuftfahrzeug(int index): Entfernt ein Luftfahrzeug an der angegebenen Position aus der Liste. Gibt true zurück, wenn erfolgreich.
+- public Luftfahrzeug getLuftfahrzeug(int index): Gibt das Luftfahrzeug an der angegebenen Position zurück.
+- public List<Luftfahrzeug> getAlleLuftfahrzeuge(): Gibt eine Kopie der Liste aller Luftfahrzeuge zurück.
+- public int getAnzahlLuftfahrzeuge(): Gibt die Anzahl der verwalteten Luftfahrzeuge zurück.
+
+2.5 HAUPTKLASSE: MAIN
+--------------------------------------------------------
+
+Die Main-Klasse enthält die Benutzeroberfläche und die Hauptmethode zum Starten des Programms.
+
+Zugriffsmodifikatoren:
+- public class Main: Die Klasse ist öffentlich zugänglich.
+
+Attribute:
+- private static LuftfahrzeugVerwaltung verwaltung: Eine Instanz der Verwaltungsklasse.
+- private static Scanner scanner: Ein Scanner-Objekt für die Benutzereingabe.
+
+Hauptmethode:
+- public static void main(String[] args): Einstiegspunkt des Programms. Initialisiert die Anwendung, fügt Beispieldaten hinzu und startet die Hauptschleife des Menüs.
+
+Hilfsmethoden:
+- private static void zeigeHauptmenue(): Zeigt das Hauptmenü an.
+- private static void zeigeAlleLuftfahrzeuge(): Zeigt eine Liste aller verwalteten Luftfahrzeuge an.
+- private static void zeigeLuftfahrzeug(): Zeigt detaillierte Informationen zu einem ausgewählten Luftfahrzeug an.
+- private static void neuesLuftfahrzeugAnlegen(): Führt den Benutzer durch den Prozess, ein neues Luftfahrzeug anzulegen.
+- private static void loescheLuftfahrzeug(): Führt den Benutzer durch den Prozess, ein Luftfahrzeug zu löschen.
+- private static int liesGanzzahl(String prompt): Hilfsmethode zum fehlertoleranten Einlesen einer Ganzzahl.
+- private static double liesKommazahl(String prompt): Hilfsmethode zum fehlertoleranten Einlesen einer Kommazahl.
+
+3. ZUGRIFFSMODIFIKATOREN UND IHRE BEDEUTUNG
+========================================================
+
+Im Code werden verschiedene Zugriffsmodifikatoren verwendet, um die Datenkapselung und Sichtbarkeit zu steuern:
+
+- public: Öffentlicher Zugriff, von überall aus möglich. Verwendet für:
+  * Klassendefinitionen
+  * Konstruktoren
+  * Getter- und Setter-Methoden
+  * Öffentliche Funktionalität wie addLuftfahrzeug(), removeLuftfahrzeug(), etc.
+
+- private: Privater Zugriff, nur innerhalb der Klasse möglich. Verwendet für:
+  * Alle Attribute in allen Klassen, um Datenkapselung zu gewährleisten
+  * Interne Hilfsmethoden in der Main-Klasse
+
+- abstract: Kennzeichnet die Klasse Luftfahrzeug als abstrakt, was bedeutet:
+  * Es können keine direkten Instanzen dieser Klasse erstellt werden
+  * Die Klasse dient als Schablone für abgeleitete Klassen
+
+4. VERERBUNGSHIERARCHIE
+========================================================
+
+Die Anwendung nutzt eine einfache Vererbungshierarchie:
+
+Luftfahrzeug (abstrakt)
+├── Flugzeug
+└── Heissluftballon
+
+Beide abgeleiteten Klassen erben alle Attribute und Methoden der Basisklasse und können diese bei Bedarf überschreiben, wie am Beispiel der getDaten()-Methode demonstriert wird.
+
+5. POLYMORPHISMUS
+========================================================
+
+Die Anwendung nutzt Polymorphismus, indem sie mit Referenzen vom Typ Luftfahrzeug arbeitet, aber auf spezifische Implementierungen der abgeleiteten Klassen zugreift:
+
+- Die LuftfahrzeugVerwaltung speichert Objekte vom Typ Luftfahrzeug, unabhängig davon, ob es sich um Flugzeuge oder Heißluftballons handelt.
+- Beim Aufruf der getDaten()-Methode wird automatisch die richtige Implementierung in der jeweiligen abgeleiteten Klasse aufgerufen.
+
+Diese Form des Polymorphismus ermöglicht eine einheitliche Behandlung aller Luftfahrzeuge, während gleichzeitig spezifische Funktionalitäten für jeden Typ erhalten bleiben.
+
+6. DATENKAPSELUNG
+========================================================
+
+Die Anwendung befolgt das Prinzip der Datenkapselung, indem:
+
+- Alle Attribute als private deklariert sind
+- Der Zugriff auf Attribute nur über öffentliche Getter- und Setter-Methoden erfolgt
+- Die LuftfahrzeugVerwaltung eine Kopie der Liste zurückgibt, um direkte Änderungen an der internen Liste zu verhindern
+
+Diese Kapselung gewährleistet, dass der interne Zustand der Objekte nur kontrolliert geändert werden kann und schützt vor unbeabsichtigten Änderungen.
+
+7. FEHLERBEHANDLUNG
+========================================================
+
+Die Anwendung implementiert grundlegende Fehlerbehandlung:
+
+- Eingabevalidierung in den Hilfsmethoden liesGanzzahl() und liesKommazahl()
+- Überprüfung von Indizes vor dem Zugriff auf die Liste der Luftfahrzeuge
+- Rückgabe von null oder false bei ungültigen Operationen
+
+Diese Fehlerbehandlung trägt zur Robustheit der Anwendung bei und verhindert Abstürze bei fehlerhaften Eingaben.
+
+8. ZUSAMMENFASSUNG
+========================================================
+
+Die Luftfahrzeug-Verwaltungsanwendung demonstriert grundlegende objektorientierte Konzepte in Java:
+
+- Abstrakte Klassen und Vererbung ermöglichen eine klare Hierarchie verschiedener Luftfahrzeugtypen
+- Datenkapselung durch private Attribute und öffentliche Zugriffsmethoden schützt den internen Zustand
+- Polymorphismus erlaubt die einheitliche Behandlung verschiedener Luftfahrzeugtypen
+- Die Trennung von Datenmodell (Luftfahrzeug und abgeleitete Klassen), Datenmanagement (LuftfahrzeugVerwaltung) und Benutzeroberfläche (Main) folgt dem Prinzip der Trennung von Zuständigkeiten
+
+Die Anwendung bietet eine einfache, aber funktionale Benutzeroberfläche, die es ermöglicht, Luftfahrzeuge zu erstellen, anzuzeigen und zu löschen. 
