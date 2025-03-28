@@ -1,5 +1,5 @@
-========================================================
-  ERKLÄRUNG DER LUFTFAHRZEUG-VERWALTUNGSANWENDUNG
+
+  ERKLÄRUNG DER LUFTFAHRZEUG-Anwendung
 ========================================================
 
 
@@ -151,6 +151,46 @@ Hilfsmethoden:
 - private static void loescheLuftfahrzeug(): Führt den Benutzer durch den Prozess, ein Luftfahrzeug zu löschen.
 - private static int liesGanzzahl(String prompt): Hilfsmethode zum fehlertoleranten Einlesen einer Ganzzahl.
 - private static double liesKommazahl(String prompt): Hilfsmethode zum fehlertoleranten Einlesen einer Kommazahl.
+
+Detaillierte Funktionsbeschreibung der Main-Klasse:
+
+Die Main-Klasse implementiert eine konsolenbasierte Benutzeroberfläche mit folgenden Hauptfunktionen:
+
+1. Programmstart und Initialisierung:
+   - Erstellt eine Instanz der LuftfahrzeugVerwaltung
+   - Initialisiert einen Scanner für Benutzereingaben
+   - Fügt Beispieldaten (Boeing 747 und Cameron Z-90) hinzu
+
+2. Hauptmenü und Benutzerinteraktion:
+   - Zeigt ein interaktives Menü mit 5 Optionen
+   - Verarbeitet Benutzereingaben über eine while-Schleife
+   - Ermöglicht das Beenden des Programms (Option 0)
+
+3. Funktionalitäten im Detail:
+   - Anzeige aller Luftfahrzeuge: Listet alle gespeicherten Luftfahrzeuge mit Nummerierung
+   - Detailansicht: Zeigt detaillierte Informationen zu einem ausgewählten Luftfahrzeug
+   - Neues Luftfahrzeug anlegen: 
+     * Ermöglicht die Auswahl zwischen Flugzeug und Heißluftballon
+     * Führt durch einen strukturierten Eingabeprozess
+     * Validiert alle Eingaben
+   - Luftfahrzeug löschen:
+     * Zeigt die Liste der Luftfahrzeuge
+     * Erfordert eine Bestätigung vor dem Löschen
+     * Führt die Löschung nur nach Bestätigung durch
+
+4. Eingabevalidierung:
+   - Verwendet spezielle Methoden zum Einlesen von Zahlen
+   - Behandelt Fehleingaben durch try-catch-Blöcke
+   - Leert den Scanner-Puffer nach Fehleingaben
+   - Stellt sicher, dass nur gültige Werte verarbeitet werden
+
+5. Benutzerfreundlichkeit:
+   - Klare Menüstruktur
+   - Ausführliche Fehlermeldungen
+   - Bestätigungsabfragen für kritische Aktionen
+   - Formatierte Ausgaben für bessere Lesbarkeit
+
+Die Main-Klasse dient somit als zentrale Schnittstelle zwischen Benutzer und dem eigentlichen Verwaltungssystem, wobei sie die Komplexität der Datenverwaltung vor dem Benutzer verbirgt und eine intuitive Bedienung ermöglicht.
 
 3. ZUGRIFFSMODIFIKATOREN UND IHRE BEDEUTUNG
 ========================================================
