@@ -1,8 +1,8 @@
-
-  ERKLÄRUNG DER LUFTFAHRZEUG-Anwendung
+========================================================
+  ERKLÄRUNG DER LUFTFAHRZEUG-VERWALTUNGSANWENDUNG (GUI-VERSION)
 ========================================================
 
-
+Diese Dokumentation erklärt den Aufbau, die Struktur und die Funktionsweise der Java-GUI-Anwendung zur Verwaltung von Luftfahrzeugen.
 
 1. ÜBERSICHT
 ========================================================
@@ -12,13 +12,14 @@ Die Anwendung wurde nach dem objektorientierten Paradigma entwickelt und nutzt K
 - Abstraktion
 - Polymorphismus
 - Datenkapselung
+- Event-basierte Programmierung (GUI)
 
 Das Programm besteht aus fünf Klassen:
 - Luftfahrzeug (abstrakte Basisklasse)
 - Flugzeug (Ableitung von Luftfahrzeug)
 - Heissluftballon (Ableitung von Luftfahrzeug)
 - LuftfahrzeugVerwaltung (Verwaltungsklasse)
-- Main (Hauptklasse mit Benutzerschnittstelle)
+- Main (GUI-Hauptklasse mit Swing-Interface)
 
 2. KLASSENSTRUKTUR IM DETAIL
 ========================================================
@@ -128,140 +129,114 @@ Methoden:
 - public List<Luftfahrzeug> getAlleLuftfahrzeuge(): Gibt eine Kopie der Liste aller Luftfahrzeuge zurück.
 - public int getAnzahlLuftfahrzeuge(): Gibt die Anzahl der verwalteten Luftfahrzeuge zurück.
 
-2.5 HAUPTKLASSE: MAIN
+2.5 GUI-HAUPTKLASSE: MAIN
 --------------------------------------------------------
 
-Die Main-Klasse enthält die Benutzeroberfläche und die Hauptmethode zum Starten des Programms.
+Die Main-Klasse implementiert die grafische Benutzeroberfläche mit Java Swing und erbt von JFrame.
 
 Zugriffsmodifikatoren:
-- public class Main: Die Klasse ist öffentlich zugänglich.
+- public class Main extends JFrame: Die Klasse ist öffentlich zugänglich und erbt von JFrame.
 
 Attribute:
 - private static LuftfahrzeugVerwaltung verwaltung: Eine Instanz der Verwaltungsklasse.
-- private static Scanner scanner: Ein Scanner-Objekt für die Benutzereingabe.
+- private JList<String> luftfahrzeugListe: Eine Swing-Komponente zur Anzeige der Luftfahrzeuge.
+- private DefaultListModel<String> listModel: Das Datenmodell für die Liste.
+- private JTextArea detailAnzeige: Eine Swing-Komponente zur Anzeige der Details.
+
+Konstruktor:
+- public Main(): Initialisiert das GUI-Fenster, erstellt alle Swing-Komponenten und setzt das Layout.
+
+GUI-Komponenten:
+- Hauptfenster (JFrame) mit BorderLayout
+- Linke Seite:
+  * Scrollbare Liste der Luftfahrzeuge (JList in JScrollPane)
+  * Button-Panel mit Aktionen (GridLayout)
+- Rechte Seite:
+  * Scrollbare Detailansicht (JTextArea in JScrollPane)
+- Dialog-Fenster für neue Luftfahrzeuge:
+  * Formular mit Textfeldern
+  * Typ-Auswahl (JComboBox)
+  * OK/Abbrechen Buttons
+
+Event-Handler:
+- Button-Aktionen für:
+  * Details anzeigen
+  * Neues Luftfahrzeug anlegen
+  * Luftfahrzeug löschen
+  * Liste aktualisieren
+- ComboBox-Aktion für dynamische Anpassung der Formularfelder
+- Dialog-Button-Aktionen für:
+  * Speichern neuer Luftfahrzeuge
+  * Abbrechen der Eingabe
 
 Hauptmethode:
-- public static void main(String[] args): Einstiegspunkt des Programms. Initialisiert die Anwendung, fügt Beispieldaten hinzu und startet die Hauptschleife des Menüs.
+- public static void main(String[] args): Startet die GUI-Anwendung im Event-Dispatch-Thread.
 
-Hilfsmethoden:
-- private static void zeigeHauptmenue(): Zeigt das Hauptmenü an.
-- private static void zeigeAlleLuftfahrzeuge(): Zeigt eine Liste aller verwalteten Luftfahrzeuge an.
-- private static void zeigeLuftfahrzeug(): Zeigt detaillierte Informationen zu einem ausgewählten Luftfahrzeug an.
-- private static void neuesLuftfahrzeugAnlegen(): Führt den Benutzer durch den Prozess, ein neues Luftfahrzeug anzulegen.
-- private static void loescheLuftfahrzeug(): Führt den Benutzer durch den Prozess, ein Luftfahrzeug zu löschen.
-- private static int liesGanzzahl(String prompt): Hilfsmethode zum fehlertoleranten Einlesen einer Ganzzahl.
-- private static double liesKommazahl(String prompt): Hilfsmethode zum fehlertoleranten Einlesen einer Kommazahl.
-
-Detaillierte Funktionsbeschreibung der Main-Klasse:
-
-Die Main-Klasse implementiert eine konsolenbasierte Benutzeroberfläche mit folgenden Hauptfunktionen:
-
-1. Programmstart und Initialisierung:
-   - Erstellt eine Instanz der LuftfahrzeugVerwaltung
-   - Initialisiert einen Scanner für Benutzereingaben
-   - Fügt Beispieldaten (Boeing 747 und Cameron Z-90) hinzu
-
-2. Hauptmenü und Benutzerinteraktion:
-   - Zeigt ein interaktives Menü mit 5 Optionen
-   - Verarbeitet Benutzereingaben über eine while-Schleife
-   - Ermöglicht das Beenden des Programms (Option 0)
-
-3. Funktionalitäten im Detail:
-   - Anzeige aller Luftfahrzeuge: Listet alle gespeicherten Luftfahrzeuge mit Nummerierung
-   - Detailansicht: Zeigt detaillierte Informationen zu einem ausgewählten Luftfahrzeug
-   - Neues Luftfahrzeug anlegen: 
-     * Ermöglicht die Auswahl zwischen Flugzeug und Heißluftballon
-     * Führt durch einen strukturierten Eingabeprozess
-     * Validiert alle Eingaben
-   - Luftfahrzeug löschen:
-     * Zeigt die Liste der Luftfahrzeuge
-     * Erfordert eine Bestätigung vor dem Löschen
-     * Führt die Löschung nur nach Bestätigung durch
-
-4. Eingabevalidierung:
-   - Verwendet spezielle Methoden zum Einlesen von Zahlen
-   - Behandelt Fehleingaben durch try-catch-Blöcke
-   - Leert den Scanner-Puffer nach Fehleingaben
-   - Stellt sicher, dass nur gültige Werte verarbeitet werden
-
-5. Benutzerfreundlichkeit:
-   - Klare Menüstruktur
-   - Ausführliche Fehlermeldungen
-   - Bestätigungsabfragen für kritische Aktionen
-   - Formatierte Ausgaben für bessere Lesbarkeit
-
-Die Main-Klasse dient somit als zentrale Schnittstelle zwischen Benutzer und dem eigentlichen Verwaltungssystem, wobei sie die Komplexität der Datenverwaltung vor dem Benutzer verbirgt und eine intuitive Bedienung ermöglicht.
-
-3. ZUGRIFFSMODIFIKATOREN UND IHRE BEDEUTUNG
+3. GUI-LAYOUT UND INTERAKTION
 ========================================================
 
-Im Code werden verschiedene Zugriffsmodifikatoren verwendet, um die Datenkapselung und Sichtbarkeit zu steuern:
+Das GUI ist in zwei Hauptbereiche unterteilt:
 
-- public: Öffentlicher Zugriff, von überall aus möglich. Verwendet für:
-  * Klassendefinitionen
-  * Konstruktoren
-  * Getter- und Setter-Methoden
-  * Öffentliche Funktionalität wie addLuftfahrzeug(), removeLuftfahrzeug(), etc.
+3.1 LINKER BEREICH
+--------------------------------------------------------
 
-- private: Privater Zugriff, nur innerhalb der Klasse möglich. Verwendet für:
-  * Alle Attribute in allen Klassen, um Datenkapselung zu gewährleisten
-  * Interne Hilfsmethoden in der Main-Klasse
+- Eine scrollbare Liste zeigt alle Luftfahrzeuge an
+- Darunter befinden sich vier Buttons für die Hauptfunktionen:
+  * "Details anzeigen": Zeigt Details des ausgewählten Luftfahrzeugs
+  * "Neu": Öffnet einen Dialog zum Anlegen eines neuen Luftfahrzeugs
+  * "Löschen": Entfernt das ausgewählte Luftfahrzeug
+  * "Liste aktualisieren": Aktualisiert die Anzeige der Luftfahrzeuge
 
-- abstract: Kennzeichnet die Klasse Luftfahrzeug als abstrakt, was bedeutet:
-  * Es können keine direkten Instanzen dieser Klasse erstellt werden
-  * Die Klasse dient als Schablone für abgeleitete Klassen
+3.2 RECHTER BEREICH
+--------------------------------------------------------
 
-4. VERERBUNGSHIERARCHIE
+- Eine scrollbare Textfläche zeigt die Details des ausgewählten Luftfahrzeugs
+- Die Anzeige wird automatisch aktualisiert, wenn ein Luftfahrzeug ausgewählt wird
+
+3.3 DIALOG FÜR NEUE LUFTFAHRZEUGE
+--------------------------------------------------------
+
+- Ein modales Dialogfenster erscheint beim Klick auf "Neu"
+- Enthält ein Formular mit:
+  * Typ-Auswahl (Flugzeug/Heißluftballon)
+  * Allgemeine Daten (Bezeichnung, Gewicht, Baujahr)
+  * Typspezifische Daten (dynamisch angepasst)
+- Buttons zum Speichern oder Abbrechen
+- Validierung der Eingaben
+
+4. FEHLERBEHANDLUNG
 ========================================================
 
-Die Anwendung nutzt eine einfache Vererbungshierarchie:
+Die GUI-Version implementiert erweiterte Fehlerbehandlung:
 
-Luftfahrzeug (abstrakt)
-├── Flugzeug
-└── Heissluftballon
+- Validierung von Benutzereingaben in Formularen
+- Fehlermeldungen in Dialogfenstern
+- Bestätigungsdialoge für kritische Aktionen
+- Exception-Handling für ungültige Eingaben
+- Benutzerfreundliche Fehlermeldungen
 
-Beide abgeleiteten Klassen erben alle Attribute und Methoden der Basisklasse und können diese bei Bedarf überschreiben, wie am Beispiel der getDaten()-Methode demonstriert wird.
-
-5. POLYMORPHISMUS
+5. BENUTZERFREUNDLICHKEIT
 ========================================================
 
-Die Anwendung nutzt Polymorphismus, indem sie mit Referenzen vom Typ Luftfahrzeug arbeitet, aber auf spezifische Implementierungen der abgeleiteten Klassen zugreift:
+Die GUI-Version bietet mehrere Verbesserungen:
 
-- Die LuftfahrzeugVerwaltung speichert Objekte vom Typ Luftfahrzeug, unabhängig davon, ob es sich um Flugzeuge oder Heißluftballons handelt.
-- Beim Aufruf der getDaten()-Methode wird automatisch die richtige Implementierung in der jeweiligen abgeleiteten Klasse aufgerufen.
+- Intuitive Benutzeroberfläche
+- Visuelle Rückmeldung bei Aktionen
+- Einfache Navigation durch Buttons
+- Dynamische Anpassung der Eingabefelder
+- Scrollbare Bereiche für lange Inhalte
+- Klare Beschriftungen und Anweisungen
 
-Diese Form des Polymorphismus ermöglicht eine einheitliche Behandlung aller Luftfahrzeuge, während gleichzeitig spezifische Funktionalitäten für jeden Typ erhalten bleiben.
-
-6. DATENKAPSELUNG
+6. ZUSAMMENFASSUNG
 ========================================================
 
-Die Anwendung befolgt das Prinzip der Datenkapselung, indem:
+Die GUI-Version der Luftfahrzeug-Verwaltungsanwendung demonstriert:
 
-- Alle Attribute als private deklariert sind
-- Der Zugriff auf Attribute nur über öffentliche Getter- und Setter-Methoden erfolgt
-- Die LuftfahrzeugVerwaltung eine Kopie der Liste zurückgibt, um direkte Änderungen an der internen Liste zu verhindern
+- Objektorientierte Programmierung mit Java
+- GUI-Entwicklung mit Swing
+- Event-basierte Programmierung
+- Datenkapselung und Vererbung
+- Benutzerfreundliche Fehlerbehandlung
+- Modulare und erweiterbare Architektur
 
-Diese Kapselung gewährleistet, dass der interne Zustand der Objekte nur kontrolliert geändert werden kann und schützt vor unbeabsichtigten Änderungen.
-
-7. FEHLERBEHANDLUNG
-========================================================
-
-Die Anwendung implementiert grundlegende Fehlerbehandlung:
-
-- Eingabevalidierung in den Hilfsmethoden liesGanzzahl() und liesKommazahl()
-- Überprüfung von Indizes vor dem Zugriff auf die Liste der Luftfahrzeuge
-- Rückgabe von null oder false bei ungültigen Operationen
-
-Diese Fehlerbehandlung trägt zur Robustheit der Anwendung bei und verhindert Abstürze bei fehlerhaften Eingaben.
-
-8. ZUSAMMENFASSUNG
-========================================================
-
-Die Luftfahrzeug-Verwaltungsanwendung demonstriert grundlegende objektorientierte Konzepte in Java:
-
-- Abstrakte Klassen und Vererbung ermöglichen eine klare Hierarchie verschiedener Luftfahrzeugtypen
-- Datenkapselung durch private Attribute und öffentliche Zugriffsmethoden schützt den internen Zustand
-- Polymorphismus erlaubt die einheitliche Behandlung verschiedener Luftfahrzeugtypen
-- Die Trennung von Datenmodell (Luftfahrzeug und abgeleitete Klassen), Datenmanagement (LuftfahrzeugVerwaltung) und Benutzeroberfläche (Main) folgt dem Prinzip der Trennung von Zuständigkeiten
-
-Die Anwendung bietet eine einfache, aber funktionale Benutzeroberfläche, die es ermöglicht, Luftfahrzeuge zu erstellen, anzuzeigen und zu löschen. 
+Die Anwendung bietet eine intuitive Benutzeroberfläche für die Verwaltung von Luftfahrzeugen, die sowohl für gelegentliche als auch für regelmäßige Nutzung geeignet ist. 
